@@ -120,4 +120,53 @@ class TypeStr {
         });
 
     }
+    static String defaultValue(Type t) {
+        return t.accept(new TypeVisitorT<>() {
+            @Override
+            public String visit(TBool type) {
+                return "false";
+            }
+
+            @Override
+            public String visit(TInt type) {
+                return "0";
+            }
+
+            @Override
+            public String visit(TLong type) {
+                return "0";
+            }
+
+            @Override
+            public String visit(TFloat type) {
+                return "0";
+            }
+
+            @Override
+            public String visit(TString type) {
+                return "\"\"";
+            }
+
+            @Override
+            public String visit(TList type) {
+                return "new java.util.ArrayList<>()";
+            }
+
+            @Override
+            public String visit(TMap type) {
+                return "new java.util.LinkedHashMap<>()";
+            }
+
+            @Override
+            public String visit(TBean type) {
+                throw new RuntimeException("unSupport");
+            }
+
+            @Override
+            public String visit(TBeanRef type) {
+                throw new RuntimeException("unSupport");
+            }
+        });
+
+    }
 }
